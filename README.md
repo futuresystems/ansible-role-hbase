@@ -1,16 +1,16 @@
-# ansible-role-hbase
-Ansible role for HBase
+# ansible-role-hbase_install
+Ansible role for installing HBase
 
 # Installation
 
 ```bash
-$ git submodule add https://github.com/futuresystems/ansible-role-hbase.git roles/hbase
+$ git submodule add https://github.com/futuresystems/ansible-role-hbase_install.git roles/hbase_install
 ```
 
 # Usage
 
 ```yaml
-- role: hbase
+- role: hbase_install
 ```
 
 

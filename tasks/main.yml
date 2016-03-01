@@ -1,2 +1,55 @@
 ---
-# tasks file for ansible-role-hbase
+
+- name: Ensure local cache directory exists
+  local_action:
+    module: file
+    path: "{{ _hbase_tmp }}"
+    state: directory
+  tags:
+    - hbase
+    - hbase_install
+
+- name: Download HBase
+  local_action:
+    module: get_url
+    url: "{{ _hbase_url }}"
+    dest: "{{ _hbase_tmp }}"
+    checksum: "sha256:{{ _hbase_checksums[hbase_version][hbase_distribution].sha256 }}"
+  tags:
+    - hbase
+    - hbase_install
+
+- name: Copy tarfile
+  copy:
+    src: "{{ _hbase_tmp_file }}"
+    dest: "{{ ansible_env.HOME }}/{{ _hbase_url | basename }}"
+  tags:
+    - hbase
+    - hbase_install
+
+- name: Extract
+  unarchive:
+    src: "{{ ansible_env.HOME }}/{{ _hbase_url | basename }}"
+    dest: "{{ hbase_prefix }}"
+    creates: "{{ hbase_prefix }}/hbase-{{ hbase_version }}"
+    copy: no
+  tags:
+    - hbase
+    - hbase_install
+
+- name: Link
+  file:
+    src: "{{ hbase_prefix }}/hbase-{{ hbase_version }}"
+    dest: "{{ hbase_prefix }}/{{ hbase_link_name }}"
+    state: link
+  tags:
+    - hbase
+    - hbase_install
+
+- name: Add to /etc/profile.d
+  lineinfile:
+    dest: /etc/profile.d/hbase.sh
+    line: "export {{ item }}"
+  with_items:
+    - HBASE_HOME={{ hbase_prefix }}/{{ hbase_link_name }}
+    - PATH=$PATH:$HBASE_HOME/bin
