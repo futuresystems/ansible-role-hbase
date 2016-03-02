@@ -1,30 +1,11 @@
 ---
 
-- name: Ensure local cache directory exists
-  become: no
-  local_action:
-    module: file
-    path: "{{ _hbase_tmp }}"
-    state: directory
-  tags:
-    - hbase
-    - hbase_install
-
 - name: Download HBase
   become: no
-  local_action:
-    module: get_url
+  get_url:
     url: "{{ _hbase_url }}"
-    dest: "{{ _hbase_tmp }}"
-    checksum: "sha256:{{ _hbase_checksums[hbase_version][hbase_distribution].sha256 }}"
-  tags:
-    - hbase
-    - hbase_install
-
-- name: Copy tarfile
-  copy:
-    src: "{{ _hbase_tmp_file }}"
     dest: "{{ ansible_env.HOME }}/{{ _hbase_url | basename }}"
+    checksum: "sha256:{{ _hbase_checksums[hbase_version][hbase_distribution].sha256 }}"
   tags:
     - hbase
     - hbase_install
