@@ -10,7 +10,7 @@ hbase_site: {}
 hbase_policy: {}
 
 
-_hbase_url: "{{ hbase_mirror }}/{{ hbase_version }}/hbase-{{ hbase_version }}.{{ hbase_distribution }}.tar.gz"
+_hbase_url: "{{ hbase_mirror }}/{{ hbase_version }}/hbase-{{ hbase_version }}-{{ hbase_distribution }}.tar.gz"
 
 _hbase_checksums:
   1.1.3:
