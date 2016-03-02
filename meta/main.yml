@@ -6,9 +6,9 @@ galaxy_info:
   
   min_ansible_version: 2.0
   platforms:
-  - name: Ubuntu
-   versions:
-   - trusty
+    - name: Ubuntu
+      versions:
+        - trusty
   
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is
