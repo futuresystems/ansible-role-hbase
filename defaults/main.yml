@@ -7,9 +7,6 @@ hbase_prefix: /opt
 hbase_link_name: hbase
 hbase_download_timeout: 30  # the files are large and network may be congested
 
-hbase_site: {}
-hbase_policy: {}
-
 
 _hbase_url: "{{ hbase_mirror }}/{{ hbase_version }}/hbase-{{ hbase_version }}-{{ hbase_distribution }}.tar.gz"
 
