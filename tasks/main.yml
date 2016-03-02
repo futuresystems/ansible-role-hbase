@@ -42,6 +42,7 @@
   lineinfile:
     dest: /etc/profile.d/hbase.sh
     line: "export {{ item }}"
+    create: yes
   with_items:
     - HBASE_HOME={{ hbase_prefix }}/{{ hbase_link_name }}
     - PATH=$PATH:$HBASE_HOME/bin
