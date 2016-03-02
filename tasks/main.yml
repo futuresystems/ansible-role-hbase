@@ -1,12 +1,20 @@
 ---
 
 - name: Download HBase
-  become: no
   get_url:
     url: "{{ _hbase_url }}"
     dest: "{{ ansible_env.HOME }}/{{ _hbase_url | basename }}"
     checksum: "sha256:{{ _hbase_checksums[hbase_version][hbase_distribution].sha256 }}"
     timeout: "{{ hbase_download_timeout }}"
+    validate_certs: no
+    # Normally, `validate_certs: no` would be bad, however, with python < 2.7.9
+    # the `get_url` module failes on some mirrors due to SNI certificates
+    # The workaround on SO didn't work, so I'm skipping certificate validation
+    # and ensuring that checksums match.
+    # Se related:
+    # https://github.com/ansible/ansible/issues/11579
+    # https://github.com/ansible/ansible-modules-core/issues/1716
+    # this did not work: http://stackoverflow.com/a/18579484
   tags:
     - hbase
     - hbase_install
