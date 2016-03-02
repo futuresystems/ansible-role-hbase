@@ -6,6 +6,7 @@
     url: "{{ _hbase_url }}"
     dest: "{{ ansible_env.HOME }}/{{ _hbase_url | basename }}"
     checksum: "sha256:{{ _hbase_checksums[hbase_version][hbase_distribution].sha256 }}"
+    timeout: "{{ hbase_download_timeout }}"
   tags:
     - hbase
     - hbase_install

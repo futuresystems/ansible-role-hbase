@@ -5,6 +5,7 @@ hbase_mirror: "https://www-us.apache.org/dist/hbase/"
 hbase_distribution: bin
 hbase_prefix: /opt
 hbase_link_name: hbase
+hbase_download_timeout: 30  # the files are large and network may be congested
 
 hbase_site: {}
 hbase_policy: {}
