@@ -1,6 +1,7 @@
 ---
 
 - name: Ensure local cache directory exists
+  become: no
   local_action:
     module: file
     path: "{{ _hbase_tmp }}"
@@ -10,6 +11,7 @@
     - hbase_install
 
 - name: Download HBase
+  become: no
   local_action:
     module: get_url
     url: "{{ _hbase_url }}"
